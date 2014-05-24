@@ -31,3 +31,10 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* This is necessary for open and closed networks.
 1. Used to check a site's status via `ms_site_check()` before loading it.
 	* This is valid for open and closed networks, though the flow in `ms_site_check()` around inactive, deleted, etc... "blogs" is worth looking at.
+
+## wp-signup.php
+
+1. Used in the same fashion as `wp-activate.php` to redirect to `wp-login.php?action=register` if not multisite.
+	* This should exist on an open multisite network.
+	* A closed multisite newtwork should redirect to home.
+
