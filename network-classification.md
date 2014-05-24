@@ -57,3 +57,22 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 1. Used in determining what help message to provide for the dashboard. If multisite, the message about recent and popular plugins is left out.
 	* This could be modified to change if a site has the ability to install new plugins.
+
+## wp-admin/menu.php
+
+1. Add "My Sites" to the menu.
+	* This is applicable to open and closed networks.
+1. Help determine if `wp_get_update_data()` should fire. Currently for non-multisite or for super admins.
+	* This is applicable to open and closed networks.
+1. If not multisite, updates for plugins, themes, and core are shown in the menu.
+	* This is applicable to open and closed networks.
+1. If not multisite, add the 'Editor' link to the appearance menu for editing theme files.
+	* This is applicable to open and closed networks.
+1. If not multisite, show a counter next to plugins to indicate available updates.
+	* This is applicable to open and closed networks.
+1. If not multisite, add links for 'Add New' and 'Editor' under plugins.
+	* This could be modified if a site has the ability to install new plugins. It would likely not make sense to add the Editor.
+1. Add a 'Delete Site' option to the tools menu if not the main site.
+	* This is applicable to open and closed networks.
+1. If not yet multisite, but `WP_ALLOW_MULTISITE` is defined, show a Network Setup option under tools.
+	* This is applicable to open and closed networks.
