@@ -18,3 +18,16 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* This should only redirect for open multisite networks.
 1. For `action=login` (and as a default), `is_multisite()` is used twice to determine where to redirect a logged in user.
 	* This seems valid for open and closed networks. It may be worth considering what `get_active_blog_for_user()` means in this scenario.
+
+## wp-settings.php
+
+1. Used to initialize multisite with `ms-blogs.php` and `ms-settings.php` if enabled.
+	* This is necessary for open and closed networks.
+1. Used to load additional multisite specific functionality through `ms-functions.php`, `ms-default-filters.php`, and `ms-deprecated.php`.
+	* This is necessary for open and closed networks.
+1. Used to load network activated plugins.
+	* This is necessary for open and closed networks.
+1. Used to fire `ms_cookie_constants()`
+	* This is necessary for open and closed networks.
+1. Used to check a site's status via `ms_site_check()` before loading it.
+	* This is valid for open and closed networks, though the flow in `ms_site_check()` around inactive, deleted, etc... "blogs" is worth looking at.
