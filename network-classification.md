@@ -52,3 +52,8 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 1. Used to redirect to `upgrade.php` if a DB version mismatch is detected and this is not multisite.
 	* This is valid for both open and closed networks.
+
+## wp-admin/index.php
+
+1. Used in determining what help message to provide for the dashboard. If multisite, the message about recent and popular plugins is left out.
+	* This could be modified to change if a site has the ability to install new plugins.
