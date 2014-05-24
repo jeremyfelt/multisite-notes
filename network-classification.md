@@ -7,3 +7,14 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. Possible redirect to `wp-login.php?action=register` if not multisite.
 	* This check should be for an open multisite network.
 	* A closed multisite network should redirect to home.
+
+## wp-login.php
+
+1. Used to determine what the login header URL and title should be. In single site, this is a link to `https://wordpress.org` and `Powered by WordPress`. In multisite, the network's home URL and name are used.
+	* This seems like appropriate behavior for closed and open networks.
+1. If `retrieve_password()` in multisite, the network's name is used rather than the site's name when sending the password reset email.
+	* This seems like appropriate behavior for closed and open networks.
+1. Used when handling `action=register` to reroute to `wp-signup.php` if multisite is enabled.
+	* This should only redirect for open multisite networks.
+1. For `action=login` (and as a default), `is_multisite()` is used twice to determine where to redirect a logged in user.
+	* This seems valid for open and closed networks. It may be worth considering what `get_active_blog_for_user()` means in this scenario.
