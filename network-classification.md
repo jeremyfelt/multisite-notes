@@ -76,3 +76,8 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* This is applicable to open and closed networks.
 1. If not yet multisite, but `WP_ALLOW_MULTISITE` is defined, show a Network Setup option under tools.
 	* This is applicable to open and closed networks.
+
+## wp-admin/ms-delete-site.php
+
+1. A check for multisite is performed before any site deletion logic is processed.
+	* This is applicable to open and closed networks.
