@@ -81,3 +81,8 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 1. A check for multisite is performed before any site deletion logic is processed.
 	* This is applicable to open and closed networks.
+
+## wp-admin/my-sites.php
+
+1. A check for multisite is performed before showing the My Sites page.
+	* This is applicable to open and closed networks.
