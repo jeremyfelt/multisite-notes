@@ -38,3 +38,8 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* This should exist on an open multisite network.
 	* A closed multisite newtwork should redirect to home.
 
+## wp-admin/about.php
+
+1. Used to determine what language to display for the link back to updates.
+	* I'm not entirely sure this should exist at all. If it does, seems to work for open and closed networks.
+
