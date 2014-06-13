@@ -302,6 +302,50 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. Determine which network step should fire on the initial page load.
 	* Applicable to both closed and open networks.
 
+## wp-admin/options-discussion.php
+
+1. Used to display a message that signup has been disabled. Only registered users can comment.
+	* Could apply to both open and closed networks, though the lines blur a bit. We might want to allow registration to comment as a user of the site, but not register in the same way that it may have been handled before.
+
+## wp-admin/options-general.php
+
+1. Used when single site to show messaging about the WordPress URL and Site URL being the same or different.
+	* Applies as a single site indicator.
+1. Used to display the option for WordPress URL, Site URL, and admin notification information on a single site.
+	* Applies as a single site indicator.
+	* The registration options here may be useful or provide some guidance depending on how open networks are handled in multisite. What does registration really mean?
+1. If this is multisite and multiple languages are available in `get_available_languages()`, show a drop down for the site specific option.
+	* Applicable to open and closed networks.
+
+## wp-admin/options-media.php
+
+1. If a single site, show messaging around the folder and path used for uploading files.
+	* Applicable to single sites only.
+1. If a single site, show the option for upload folder and path.
+	* Applicable to single sites only.
+
+## wp-admin/options-permalink.php
+
+1. Set a blog prefix of `/blog` if this is a subdirectory install of multisite and is on the main site.
+	* Applicable to both open and closed networks.
+1. If single site, show messaging around updating your `web.config` or `.htaccess`.
+	* Applicable to single sites only.
+1. Replace any other mention of `blog` in the various permalink bases if multisite and if a subdirectory install and if on the main site.
+	* Applicable to both open and closed networks.
+1. If single site, show messaging to communicate troubles around updating rewrite rules due to file permissions.
+	* Applicable to single sites only.
+
+## wp-admin/options.php
+
+1. Used to determine if admin email change requests should be processed.
+	* Applicable to both open and closed networks.
+1. If multisite and not a super admin and an action of update, display a cheating message. This page is not normally accessed directly.
+	* Applicable to open and closed networks.
+1. If single site, whitelist different options for updating than if multisite.
+	* Applicable to open and closed networks.
+1. If options are being saved and this is multisite and you are not a super admin, display an insufficient permissions error.
+	* Applicable to open and closed networks.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
