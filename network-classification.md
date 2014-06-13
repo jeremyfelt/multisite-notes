@@ -366,6 +366,16 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* Applicable to both open and closed networks.
 	* If any capabilities were changed for site administrators to install plugins outside of `is_network_admin()`, this could change.
 
+## wp-admin/post-new.php
+
+1. If multisite, always do `_admin_notice_post_locked()` on `admin_footer`.
+	* Applicable to both closed and open networks.
+
+## wp-admin/post.php
+
+1. If multisite, always do `_admin_notice_post_locked()` on `admin_footer`.
+	* Applicable to both closed and open networks.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
