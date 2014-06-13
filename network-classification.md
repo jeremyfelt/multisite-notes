@@ -537,6 +537,104 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. Used in `is_super_admin()` to call `get_super_admins()` for building the super admin list.
 	* Applicable for both closed and open networks.
 
+## wp-includes/class-wp-admin-bar.php
+
+1. When initializing the admin bar, if multisite, use `get_active_blog_for_user()` to figure out what domain to show.
+	* Applicable for both closed and open networks.
+
+## wp-includes/class-wp-theme.php
+
+1. Always return true in `WP_Theme`'s `is_allowed()` if single site. Otherwise get themes that are allowed on the network and the site.
+	* Applicable for both closed and open networks.
+	* Could be interesting to figure out the logic for this if site admins are ever allowed to install themes.
+1. If single site in `WP_Theme`'s `get_allowed_on_site`, use `get_current_blog_id()`.
+	* Applicable for both closed and open networks.
+
+## wp-includes/class-wp-xmlrpc-server.php
+
+1. In `wp_getUsersBlogs()`, if single site, return the value of `blogger_getUsersBlogs()`
+	* Applicable to both closed and open networks.
+1. In `blogger_getUsersBlogs()`, if multisite, return value of `_multisite_getUsersBlogs()`. This retrieves the user's sites.
+	* Applicable to both closed and open networks.
+
+## wp-includes/default-constants.php
+
+1. If multisite, define a slightly larger memory limit.
+	* Applicable to both closed and open networks.
+
+## wp-includes/deprecated.php
+
+1. Used in deprecated `wp_admin_bar_dashboard_view_site_menu()` to determine what dashboard URL to use for a user.
+	* Deprecated. Applicable to open and closed networks.
+
+## wp-includes/functions.php
+
+1. If multisite is enabled and `ms_files_rewriting` is disabled, obey the value of `UPLOADS`.
+	* Applicable to open and closed networks.
+1. Additional logic around multisite and upload directories.
+	* Applicable to open and closed networks.
+1. Used in `is_main_site()` to return true if single site.
+	* Applicable for single site.
+1. Used in `is_main_network()` to return true if single site.
+	* Applicable for single site.
+1. Used in `global_terms_enabled` to return false if single site.
+	* Applicable for single site.
+
+## wp-includes/l10n.php
+
+1. Used in `get_locale()` to help determine what locale to use when multisite is enabled.
+	* Applicable to both open and closed networks.
+1. Used in `load_default_textdomain` when multisite is enabled to determine which text domain to use.
+	* Applicable to both open and closed networks.
+
+## wp-includes/link-template.php
+
+1. In `get_home_url()`, switch to a specified site before looking up the home URL.
+	* Applicable to both open and closed networks.
+1. In `get_site_url()`, switch to a specified site before looking up the network URL.
+	* Applicable to both open and closed networks.
+1. In `network_site_url()`, return `site_url()` if single site. Otherwise determine what the current network URL is.
+	* Applicable to both open and closed networks.
+1. In `network_home_url()`, return `home_url()` if single site. Otherwise determine what the current network's home URL is.
+	* Applicable to both open and closed networks.
+1. In `network_admin_url()`, return `admin_url()` if single site. Otherwise determine what the current network's admin URL is.
+	* Applicable to both open and closed networks.
+1. In `get_dashboard_url()`, return `admin_url()` as the user's dashboard URL if this is a single site installation. Otherwise determine which site is the user's primary site and route there.
+	* Applicable to both open and closed networks.
+
+## wp-includes/load.php
+
+1. In `wp_not_installed()`, an error message is shown if the requested site is not installed properly and we are not in the middle of installing.
+	* Applicable to both open and closed networks.
+1. In `wp_get_active_and_valid_plugins()`, add active network plugins to the array of active plugins.
+	* Applicable to both open and closed networks.
+1. The definition of `is_multisite()`.
+	* Applicable to everything.
+
+## wp-includes/media-template.php
+
+## wp-includes/media.php
+
+## wp-includes/ms-deprecated.php
+
+## wp-includes/ms-files.php
+
+## wp-includes/ms-functions.php
+
+## wp-includes/option.php
+
+## wp-includes/post.php
+
+## wp-includes/rewrite.php
+
+## wp-includes/theme.php
+
+## wp-includes/update.php
+
+## wp-includes/user.php
+
+## wp-includes/wp-db.php
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
