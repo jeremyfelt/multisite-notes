@@ -276,3 +276,28 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. In `wp_delete_user()`, use `remove_user_from_blog()` rather than deleting the user completely.
 	* Applicable to both closed and open networks.
 	* As stated elsewhere, it may be interesting to handle deletion of users in a closed network when a site admin has the ability.
+
+## wp-admin/maint/repair.php
+
+1. Determine if repair on the `sitecategories` table should be attempted.
+	* Applicable to both closed and open networks. Old.
+
+## wp-admin/network.php
+
+1. Used to determine where to redirect after multisite has been installed during initial page load.
+	* Applicable to both closed and open networks. Used during installation.
+1. As part of `network_step2()`, used to show original configuration steps if multisite is already installed.
+	* Applicable to both closed and open networks.
+1. Used as a single site check to determine if the "Enabling the Network" messaging should show in `network_step2()`.
+	* Applicable to both closed and open networks.
+1. Used in `network_step2()` with the `ms_files_rewriting` option to determine what rules should be written to web config.
+	* Applicable to both closed and open networks.
+	* Slightly strange as it wouldn't fire during initial installation.
+1. Used in `network_step2()` with the `ms_files_rewriting` option to determine what rules should be written to `.htaccess`.
+	* Applicable to both closed and open networks.
+	* Slightly strange as it wouldn't fire during initial installation.
+1. Used as a single site check in `network_step2()` to explain that the network will be enabled once you complete these steps.
+	* Applicable to both closed and open networks.
+	* Could benefit from a less confusing `is_single_site()` or `is_installing_network()` or something.
+1. Determine which network step should fire on the initial page load.
+	* Applicable to both closed and open networks.
