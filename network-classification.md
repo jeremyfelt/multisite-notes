@@ -613,27 +613,91 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 ## wp-includes/media-template.php
 
+1. If multisite is enabled and upload space is not available, include upload limit exceeded messaging in the inline uploader template.
+	* Applicable to both open and closed networks.
+
 ## wp-includes/media.php
+
+1. Used to determine if upload limit is exceeded in Plupload default parameters.
+	* Applicable to both open and closed networks.
 
 ## wp-includes/ms-deprecated.php
 
+1. Used 3 times in a comment for `is_site_admin()`, as this was a method of determining if multisite was enabled before 3.0.0.
+	* Applicable to both open and closed networks.
+
 ## wp-includes/ms-files.php
+
+1. Used only to redirect if multisite is not enabled.
 
 ## wp-includes/ms-functions.php
 
+1. In `get_active_blog_for_user()`, return the only site if single site. If multisite, determine what the user's primary site is and return that.
+	* Applicable to both open and closed networks.
+
 ## wp-includes/option.php
+
+1. In `wp_load_alloptions()`, if single site, retrieve `alloptions` from cache. If multisite, retrieve `alloptions` from the database.
+	* Applicable to both open and closed networks.
+1. In `wp_load_alloptions()`, if single site, save `alloptions` to cache. If multisite, don't.
+	* Applicable to both open and closed networks.
+1. In a comment for `wp_load_core_site_options()`
+1. If single site or using external object cache or installing, return null in `wp_load_core_site_options()`. Otherwise, load options and provide them in cache.
+	* Applicable to both open and closed networks.
+1. In `get_site_option()` used to check for single site. If single site, retrieve the option with `get_option()`. If multisite, `get_site_option()` retrieves the network level option from sitemeta.
+	* Applicable to both open and closed networks.
+1. In `add_site_option()`, use `add_option()` if single site, otherwise set the network level option in the sitemeta table.
+	* Applicable to both open and closed networks.
+1. In `delete_site_option()`, use `delete_option()` if single site, otherwise delete the network level option from the sitemeta table.
+	* Applicable to both open and closed networks.
+1. In `update_site_option()`, use `update_option()` if single site, otherwise update the network level option in the sitemeta table.
+	* Applicable to both open and closed networks.
 
 ## wp-includes/post.php
 
+1. In `wp_delete_attachment()`, delete the `dirsize_cache` transient if multisite is enabled.
+	* Applicable to both open and closed networks.
+
 ## wp-includes/rewrite.php
+
+1. Add rewrite rules for registration and signup if multisite is enabled in and this is the main site.
+	* Applicable to open networks.
+	* Likely an opportunity for different behavior in a closed network.
 
 ## wp-includes/theme.php
 
+1. In `wp_get_themes()`, if multisite, process requests for the type of allowed theme to retrieve - network, site, all - for an individual site.
+	* Applicable to open and closed networks.
+
 ## wp-includes/update.php
+
+1. In `wp_version_check()`, if multisite, set multisite specific reporting data for the API call.
+	* Applicable to open and closed networks.
 
 ## wp-includes/user.php
 
+1. In `wp_authenticate_spam_check()`, check if the authenticated user has been marked as a spammer or if the user's primary blog has been marked as spam.
+	* Applicable to open networks.
+	* May not have a place in a closed network.
+1. In `WP_User_Query::prepare_query()`, add `user_url` to search columns if this is not multisite or if this is multisite and is not a large user installation.
+	* Applicable to both open and closed networks.
+1. In `WP_User_Query::prepare_query()`, used to help determine if a cap meta query should be added specific to the site.
+	* Applicable to both open and closed networks.
+1. In `get_blogs_of_user()`, if single site, set the current site data to the `$blogs` array and return. If multisite, use user meta to build a list of sites and return that array.
+	* Applicable to both open and closed networks.
+
 ## wp-includes/wp-db.php
+
+1. Used in `init_charset()` if it exists. Sets the charset to UTF8 and the DB collate options.
+	* Applicable to both open and closed networks.
+1. Used in `set_prefix()` to help determine what table prefix to set.
+	* Applicable to both open and closed networks.
+1. Used in `get_blog_prefix()` to determine how to build the base prefix for an individual site.
+	* Applicable to both open and closed networks.
+1. Used twice in `WPDB::tables()` to determine when multisite global tables should be merged into the tables array.
+	* Applicable to both open and closed networks.
+1. Handle the display of a database error slightly different if multisite is enabled in `WPDB::print_error()`.
+	* Applicable to both open and closed networks.
 
 ## wp-admin/network/about.php
 
