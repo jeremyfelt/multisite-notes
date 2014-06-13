@@ -346,6 +346,26 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. If options are being saved and this is multisite and you are not a super admin, display an insufficient permissions error.
 	* Applicable to open and closed networks.
 
+## wp-admin/plugin-editor.php
+
+1. If this is multisite and this file is not being accessed in the `wp-admin/network/` area, redirect to the network admin url version.
+	* Applicable to both open and closed networks.
+
+## wp-admin/plugin-install.php
+
+1. If this is multisite and this file is not being accessed in the `wp-admin/network/` area, redirect to the network admin url version.
+	* Applicable to both open and closed networks.
+
+## wp-admin/plugins.php
+
+1. If activating a plugin and this is multisite and the page is not being accessed under `wp-admin/network/` and this is a network only plugin, redirect to `self_admin_url()`.
+	* Applicable to both open and closed networks.
+1. When bulk activating, if multisite, check for any network only plugins and unset them from the bulk activation array.
+	* Applicable to both open and closed networks.
+1. If single site, or if the user can install plugins and is in the `wp-admin/network` area, show a link for 'Add New'.
+	* Applicable to both open and closed networks.
+	* If any capabilities were changed for site administrators to install plugins outside of `is_network_admin()`, this could change.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
