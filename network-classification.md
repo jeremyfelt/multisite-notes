@@ -301,3 +301,111 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 	* Could benefit from a less confusing `is_single_site()` or `is_installing_network()` or something.
 1. Determine which network step should fire on the initial page load.
 	* Applicable to both closed and open networks.
+
+## wp-admin/network/about.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/admin.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/credits.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/edit.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/freedoms.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/index.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/plugin-editor.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/plugin-install.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/plugins.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/profile.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/settings.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/setup.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/site-info.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/site-new.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/site-settings.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/site-themes.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/site-users.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/sites.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/theme-editor.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/theme-install.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/themes.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/update-core.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/update.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/upgrade.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/user-edit.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/user-new.php
+
+1. Used only to redirect if multisite is not enabled.
+
+## wp-admin/network/users.php
+
+1. Used only to redirect if multisite is not enabled.
