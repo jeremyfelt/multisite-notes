@@ -86,3 +86,94 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 1. A check for multisite is performed before showing the My Sites page.
 	* This is applicable to open and closed networks.
+
+## wp-admin/includes/admin.php
+
+1. Used to load `wp-admin/includes/ms.php` and `wp-admin/includes/ms-deprecated.php`
+	* This is applicable to open and closed networks.
+
+## wp-admin/includes/ajax-actions.php
+
+1. Used before fully firing `wp_ajax_autocomplete_user()`. `wp_die( -1 )` is used if not multisite.
+	* This is applicable to open and closed networks.
+
+## wp-admin/includes/class-wp-importer.php
+
+1. Used to determine if `switch_to_blog()` should be used when `set_blog()` fires during an import.
+	* This is applicable to open and closed networks.
+
+## wp-admin/includes/class/wp-plugins-list-table.php
+
+1. Used when preparing items for the plugin list table. If multisite is enabled, the advanced plugins list table will display.
+	* This is likely applicable to open and closed networks, though could be used to display slightly different data.
+1. Used to filter out network only plugins.
+	* This is applicable to open and closed networks.
+1. Used to help show the update and delete options in either single site mode or in the network admin.
+	* The behavior of this could change somewhat depending on what restrictions are changed as part of a closed network. This does apply at some level to both open and closed.
+1. Do not show `plugin_rows()` if multisite and not in the network admin **and** looking at mustuse or dropin plugins.
+	* This could change, though is probably applicable to both closed and open networks. It depends on what access a site on a closed network should have to mu-plugins and drop-in plugins.
+1. Used to prevent the plugin deletion option from appearing in admin area of an individual site.
+	* This could change if more management flexibility is given to individual sites in a closed network.
+1. Used in combination with `$screen->in_admin( 'network' )` to determine if the edit plugin option should be shown for an individual site.
+	* This could change if more management flexibility is given to individual sites in a closed network. This also seems scary. :)
+
+## wp-admin/includes/class-wp-themes-list-table.php
+
+1. Used to guide a network admin to enable or install more themes for an individual site if only one is available in the list table.
+	* This could change if more management flexibility is given to individual sites for installing themes in a closed network.
+1. Used to show theme deletion options for single site only.
+	* This could change if individual sites are given the ability to add and remove their own themes.
+
+## wp-admin/includes/class-wp-upgrader-skins.php
+
+1. Used to determine if a plugin should be network activated once installed by a network administrator.
+	* This is applicable to both open and closed networks.
+
+## wp-admin/includes/class-wp-upgrader.php
+
+1. Enter maintenance mode if multisite is enabled and more than one plugins is being bulk upgraded.
+	* Applicable to both open and closed networks.
+	* There's a @todo here around only kicking this in for individual sites if possible. That could be a cool feature, especially if sites on a closed network have more control.
+1. Enter maintenance mode if multisite is enabled and more than one theme is being bulk upgraded.
+	* Applicable to both open and closed networks.
+	* As with plugins, there is a @todo around maintenance mode for individual sites.
+
+## wp-admin/includes/class-wp-users-list-table.php
+
+1. Show a "Remove" option to remove users in the users list table rather than the option to delete users from the network entirely.
+	* This could change if sites are more autonomous around their users. An option to delete a user could be shown if that user is not a member of any other sites on the network.
+1. Used when displaying rows in the users list table. If it is multisite and the user has no role on this site, the user is not shown.
+	* This seems to be less applicable with closed networks. Open networks can have various registration needs that need to be fulfilled before a user should appear on the site's user list. Closed networks want the user to appear immediately. It may be possible that nothing changes directly here, but that modified closed network behavior as a whole causes a change.
+1. When not multisite, show the delete user option on a single row.
+	* The determination to display this differently could change one day in a closed network configuration.
+1. When multisite, show the remove user option on a single row.
+	* The determination to display this differently could change one day in a closed network configuration.
+
+## wp-admin/includes/dashboard.php
+
+1. If not multisite, or if in the network admin, bring in a feed of popular plugins.
+	* This use is purely for single site detection. Another check is used for network admin.
+	* This could change if more plugin management options are provided to sites on a closed network.
+
+## wp-admin/includes/deprecated.php
+
+## wp-admin/includes/export.php
+
+## wp-admin/includes/file.php
+
+## wp-admin/includes/media.php
+
+## wp-admin/includes/misc.php
+
+## wp-admin/includes/plugin.php
+
+## wp-admin/includes/schema.php
+
+## wp-admin/includes/theme.php
+
+## wp-admin/includes/update.php
+
+## wp-admin/includes/upgrade.php
+
+## wp-admin/includes/user.php
+
