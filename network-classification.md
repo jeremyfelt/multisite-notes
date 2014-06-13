@@ -158,20 +158,79 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. If not multisite, or if in the network admin, bring in a feed of popular plugins.
 	* This use is purely for single site detection. Another check is used for network admin.
 	* This could change if more plugin management options are provided to sites on a closed network.
+1. If not multisite, return `wp_dashboard_quota()` without doing anything.
 
 ## wp-admin/includes/deprecated.php
 
+1. Helps determine whether to use `user_level` or `capabilities` when retrieving user meta in the deprecated `get_author_user_ids()`
+	* Applicable to both closed and open networks. Also deprecated.
+1. Helps to determine whether to use `user_level` or `capabilities` when retrieving user meta in the deprecated `get_editable_user_ids()`
+	* Applicable to both closed and open networks. Also deprecated.
+1. Helps to determine whether to use `user_level` or `capabilities` when retrieving user meta in the deprecated `get_nonauthor_user_ids()`
+	* Applicable to both closed and open networks. Also deprecated.
+1. Used to help find the correct user meta key in the deprecated WP_User_Search class.
+	* Applicable to both closed and open networks. Also deprecated.
+
 ## wp-admin/includes/export.php
+
+1. Used to return `network_home_url()` when `wxr_site_url()` fires.
+	* Applicable to both closed and open networks.
 
 ## wp-admin/includes/file.php
 
+1. Used in a `@uses` comment for `wp_handle_upload()`
+1. Used to show different error messaging in `wp_handle_upload()`. If multisite is not enabled, A suggestion to check your php.ini file is shown.
+	* Applicable to both open and closed networks.
+	* Would think this messaging could be improved to show different messaging to a certain level of user so that troubleshooting becomes easier.
+1. When uploading a file, delete the `dirsize_cache` if multisite is enabled.
+	* Applicable to both closed and open networks.
+
 ## wp-admin/includes/media.php
+
+1. Fires an action when an upload will exceed the defined upload space quota for a site.
+	* Applicable to both closed and open networks.
 
 ## wp-admin/includes/misc.php
 
+1. Avoid saving rewrite rules in `.htaccess` if multisite is active.
+	* Applicable to both open and closed networks.
+	* Kind of a bummer that we can't offer this to multisite installations, though everyone should use nginx anyway.
+1. Avoid saving rewrite rules for IIS if multisite is active.
+	* Applicable to both open and closed networks.
+
 ## wp-admin/includes/plugin.php
 
+1. Used in `@uses` doc for `_get_dropins()`
+1. Used to add `sunrise.php`, `blog-deleted.php`, `blog-inactive.php`, `blog-suspended.php` to the dropins array.
+	* This could be changed for close networks to not deal with the deleted, inactive, and suspended dropins.
+1. Returns false if not multisite in `is_plugin_active_for_network()`
+	* Applicable to both closed and open networks.
+1. Handle network wide plugin activation if this is multisite.
+	* Applicable to both closed and open networks.
+1. Handle network wide plugin deactivation if this is multisite.
+	* Applicable to both closed and open networks.
+1. Include network activated plugins in array of plugins to validate in `validate_active_plugins()` if multisite is enabled.
+
 ## wp-admin/includes/schema.php
+
+1. Used first to set the `$is_multisite` variable inside `wp_get_db_schema()` in combination with the `WP_INSTALLING_NETWORK` constant.
+1. `$is_multisite` is first used to determine if `$global_tables` should be made up of `$users_multi_table` and `$usermeta_table` or `$users_single_table` and `$usermeta_table`
+	* Seems applicable to both open and closed networks, though see notes on registration and activation elsewhere.
+1. `$is_multisite` is used again when the scope for the schema is global, all, and by default to add the `$ms_global_tables` to the configuration.
+	* The schema laid out by `$ms_global_tables` could be reduced if a closed network does not want to allow activations and registrations. This may be more trouble than it's worth.
+1. In `populate_options`, used to determine what DB version to use in a single site install.
+	* Single site only. Applicable to both open and closed networks.
+1. In `populate_options`, used to set `blogdescription` and `permalink_structure` options.
+	* Applicable to both open and closed networks.
+1. In `populate_network()`, used to set `$site_admins` array during multisite installation.
+	* Occurs during network installation only.
+	* Applicable to both open and closed networks.
+1. In `populate_network()`, used to set the network meta option for `upload_space_check_disabled`.
+	* Applicable to both open and closed networks.
+1. In `populate_network()`, used to set the network meta option for `ms_files_rewriting`.
+	* Applicable to both open and closed networks.
+1. During upgrade from single site to multisite, setup the `$current_site` global and other data under the assumption that this site will be the main site on the new network. This does not occur on future uses of `populate_network()`.
+	* Applicable for both open and closed networks.
 
 ## wp-admin/includes/theme.php
 
