@@ -407,6 +407,80 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 1. If this is multisite and this page is not loaded under `wp-admin/network`, redirect to the network admin URL.
 
+## wp-admin/user-edit.php
+
+1. If multisite, check if the site administrator is allowed to edit any user.
+	* Applicable to both closed and open networks.
+1. If multisite and on a user's own profile page and an option is set to confirm the profile email change, update the user and send.
+	* Applicable to both closed and open networks.
+	* But this is kind of confusing.
+1. If multisite and on a user's own profile page and the option to dismiss a confirmation email is selected, don't send an email (?).
+	* Applicable to both closed and open networks.
+	* But this is also kind of confusing.
+1. If multisite, update the email address in signups if present.
+	* Applicable to open networks. Not necessary in a closed network.
+1. If multisite, handle a request to revoke super admin for a user.
+	* Applicable to both closed and open networks.
+1. If multisite, and a current user cannot create users, but can promote users, show an 'Add Existing' option when on a user edit page that is not the user's.
+	* Applicable to open and closed networks.
+1. If multisite and in the network admin area and the current user can manage network options, show the option to grant or revoke super admin rights.
+	* Applicable to open and closed networks.
+
+## wp-admin/user-new.php
+
+1. If multisite and the current user cannot create or promote users, show a cheating message.
+	* Applicable to open and closed networks.
+1. If multisite, create functions for `admin_created_user_email()` and `admin_created_user_subject()`, both invitation related emails to new users.
+	* Applicable to open networks.
+	* Seems less applicable to closed networks. I wouldn't invite a user, I would add them.
+1. If multisite, use `wpmu_validate_user_signup()` to validate provided new user information, sign them up, and then activate the signup if the no confirmation option is selected.
+	* Applicable to open networks.
+	* In a closed network, so much of this is clunky.
+1. If multisite and the user can both create and promote users, set a `$do_both` flag to be used when deciding what options to show for adding a new user.
+	* Applicable to both closed and open networks.
+1. If multisite, provide different messaging for adding new and existing users.
+	* Applicable to both closed and open networks.
+1. If multisite, filter whether to enable user auto-complete for non super admins in multisite.
+	* Applicable to both closed and open networks.
+1. If multisite, process the possible `$_GET['update']` values and provide appropriate messaging.
+	* Some separation will be required for open and closed networks. These messages include text referencing invitations and confirmation links.
+1. If multisite, determine whether to show messaging for adding an existing user. Then show the form for adding the user.
+	* Applicable to both closed and open networks.
+	* Some changes could be made to language around confirmation email in a closed vs open network.
+1. Comment marking end of `is_multisite()` block.
+1. If single site, show fields for First Name, Last Name, Website, and possibly password fields.
+	* This is single site specific right now, but could be useful for closed networks where individual site administrators want to add more information about users as they are being created.
+1. Comment marking end of `is_multisite()` block.
+1. If multisite and super admin, add an option to skip the confirmation email.
+	* Applicable to open networks.
+	* The handling of this confirmation should be changed in general for closed networks.
+
+## wp-admin/users.php
+
+1. If multisite, show "Remove" user language instead of "Delete" user language.
+	* Applicable to open networks. May be interesting to change some of the expectations here for closed networks.
+1. When modifying your own user, used to check if you are a super admin if you try editing your user role to something that cannot promote users when your current role can promote users.
+	* Applicable to open and closed networks.
+1. If this is multisite and a user is being promoted that is not a member of the blog, throw a cheating message.
+	* Applicable to open and closed networks.
+1. If multisite, handle a dodelete request. User deletion is not allowed from this screen. Redirect.
+	* Applicable to open and closed networks.
+	* Though it would be interesting if users could be deleted in some instances.
+1. If multisite, handle a delete request. User deletion is not allowed from this screen. Redirect.
+	* Applicable to open and closed networks.
+	* See note above.
+1. If single site, handle a doremove request. Users cannot be removed in single site, only deleted.
+	* Would benefit from an `is_single_site()` method.
+1. If single site, handle a remove request. Users cannot be removed in single site, only deleted.
+	* Would benefit from an `is_single_site()` method.
+1. If multisite, and a current user cannot create users, but can promote users, show an 'Add Existing' option when on a user edit page that is not the user's.
+	* Applicable to open and closed networks.
+
+## wp-admin/user/admin.php
+
+1. If single site, redirect to the admin URL.
+	* Applicable to single site.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
