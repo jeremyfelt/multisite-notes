@@ -504,6 +504,39 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 ## wp-includes/capabilities.php
 
+1. If multisite, super admins have all capabilities by definition.
+	* Applicable to both closed and open networks.
+1. If multisite, `edit_user` and `edit_users` caps are allowed only for super admins.
+	* Applicable to open networks.
+	* May be worth discussing the role of a site admin in a closed network.
+1. Used as part of a single site, super admin check when determining if unfiltered uploads should be allowed.
+	* Applicable to open networks.
+	* May be worth discussing the role of a site admin in a closed network and how unfiltered uploads could be used.
+1. Do not allow unfiltered HTML if multisite and the user is not a super admin.
+	* Applicable to open networks.
+	* May be worth discussing the role of a site admin in a closed network.
+1. Do not allow non super admins in multisite to edit files, plugins, or themes.
+	* Applicable to open and closed networks.
+	* There **may** be an argument for allowing site admins to edit files at the site level, but that's way risky.
+1. Do not allow non super admins to update, delete, install plugins, themes, or core.
+	* Applicable to open networks.
+	* Changes around plugins and themes could be interesting for site admins on closed networks.
+1. If multisite, check for and set the proper cap for `manage_network_plugins`
+	* Applicable to open networks.
+	* If changes were made around site admins, this cap may be adjusted a bit.
+1. If multisite and not a super admin, do not allow the `delete_users` or `delete_user` cap.
+	* Applicable to open networks.
+	* Worth discussing the roles of site admins and whether a user deleted from a site could be deleted completely.
+1. If multisite and a super admin and `add_new_users` is a network option (?), add the `create_users` capability.
+	* Applicable to open networks.
+	* The super_admin logic could change on closed networks.
+1. In `current_user_can_for_blog()`, determines if we should `switch_to_blog()`
+	* Applicable for both closed and open networks.
+1. Also in `current_user_can_for_blog()`, determine if we should `restore_current_blog()`
+	* Applicable for both closed and open networks.
+1. Used in `is_super_admin()` to call `get_super_admins()` for building the super admin list.
+	* Applicable for both closed and open networks.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
