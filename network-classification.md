@@ -1,3 +1,7 @@
+# Thoughts
+
+* There are many times when `! is_multisite()` is used purely to perform single site behavior. While going down the road of closed and open networks, we may want to consider something along the lines of `is_single_site()` that makes it easier to follow when something specific to single site is happening. This could make even more sense if we start doing something like `is_multisite( 'closed' )` or `is_closed_network()` or ...
+
 # Uses of is_multisite()
 
 As of changeset 28572, there are 255 uses of `is_multisite()` in core.
