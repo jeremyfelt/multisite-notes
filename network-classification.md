@@ -481,6 +481,29 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. If single site, redirect to the admin URL.
 	* Applicable to single site.
 
+## wp-includes/admin-bar.php
+
+1. Used in `wp_admin_bar_site_menu()` to add an `Edit Site` link to the admin bar if the user can manage sites and is a site admin.
+	* Applicable to both closed and open networks.
+1. In `wp_admin_bar_my_sites_menu()`, don't show the my sites menu for single site users.
+	* Would benefit from an `is_single_site()` method.
+
+## wp-includes/cache.php
+
+1. Used when construction `WP_Object_Cache` to set `$this->multisite`, adding more to the list of uses to check...
+	* Applicable for both closed and open networks.
+1. Used as `$this->multisite` when deciding what blog prefix to use during object cache construction.
+	* Applicable for both closed and open networks.
+	* Each use of `$this->multisite` is only to determine if the blog prefix should be used as part of the key.
+
+## wp-includes/canonical.php
+
+1. If multisite, redirect to the signup location if `wp-register.php` is requested.
+	* Applicable to open networks.
+	* A different process should be provided for closed networks that have no registration.
+
+## wp-includes/capabilities.php
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
