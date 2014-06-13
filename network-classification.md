@@ -403,6 +403,10 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. If single site and can edit themes and any themes are broken, show messaging.
 	* Applicable to single site.
 
+## wp-admin/update-core.php
+
+1. If this is multisite and this page is not loaded under `wp-admin/network`, redirect to the network admin URL.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
