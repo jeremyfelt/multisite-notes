@@ -376,6 +376,33 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 1. If multisite, always do `_admin_notice_post_locked()` on `admin_footer`.
 	* Applicable to both closed and open networks.
 
+## wp-admin/theme-editor.php
+
+1. If this is multisite and this page is not loaded under `wp-admin/network`, redirect to the network admin URL.
+	* Applicable to both closed and open networks.
+
+## wp-admin/theme-install.php
+
+1. If this is multisite and this page is not loaded under `wp-admin/network`, redirect to the network admin URL.
+	* Applicable to both closed and open networks.
+
+## wp-admin/themes.php
+
+1. If this is multisite and the current user can install themes, show a message that theme installation can only be done from the network admin.
+	* Applicable to closed and open networks.
+	* But wouldn't it be nice if a trusted site admin on a closed network could install their own themes from the theme page.
+1. Used as a single site flag to set an install themes cap check in `_wpThemeSettings`
+	* Applicable to single sites.
+1. Used as a single site flag to set an install themes URL in `_wpThemeSettings`.
+	* Applicable to single sites.
+1. If single site and the user has the install_themes capability, show an 'Add New' option.
+	* Applicable to single site.
+1. If single site or if the current user can manage network themes, show any error messaging.
+	* Applicable to both closed and open networks.
+	* Would benefit from any `is_single_site()` change.
+1. If single site and can edit themes and any themes are broken, show messaging.
+	* Applicable to single site.
+
 ## wp-admin/network/about.php
 
 1. Used only to redirect if multisite is not enabled.
