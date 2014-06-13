@@ -234,9 +234,45 @@ As of changeset 28572, there are 255 uses of `is_multisite()` in core.
 
 ## wp-admin/includes/theme.php
 
+1. Show update messaging for themes in single site mode.
+	* This is single site specific, but could possibly be changed to included closed networks if the management of themes at individual site levels change at all.
+
 ## wp-admin/includes/update.php
+
+1. Show a core update nag in `update_nag()` if this is multisite and the user can update core.
+	* Applicable to both open and closed networks.
+1. Show update messaging in individual plugin rows if in the network admin or if in single site.
+	* Applicable to both open and closed networks.
+	* This use is more specific to single site. We use `is_network_admin` as the multisite check here.
 
 ## wp-admin/includes/upgrade.php
 
+1. Used to determine if first post content should be retrieved from network options.
+	* Applicable to both open and closed networks.
+1. Used to determine if the first comment content should be retrieved from network options.
+	* Applicable to both open and closed networks.
+1.Used to determine if first page content should be retrieved from network options.
+	* Applicable to both open and closed networks.
+1. Set an option to show the welcome panel in single site mode. We use an else to handle multisite cases and to show a welcome panel for all non-super admin users.
+	* Applicable to both open and closed networks.
+	* It would be worth a look at the welcome panel messaging. I'm not sure if it has open network specific language in it.
+1. If multisite, flush rewrite rules to pick up the new page.
+	* Applicable to both open and closed networks.
+1. Used to fire `upgrade_network()` in `wp_upgrade()` if multisite is enabled and this is the main site.
+	* Applicable to both open and closed networks.
+1. If multisite, update or set the db_version in the blog_versions table.
+	* Applicable to both open and closed networks.
+1. In `upgrade_280()`, retrieve all options from the main options table and create copies for individual site options.
+	* Old and specific. Applicable to both open and closed networks.
+1. In `upgrade_300()`, add a network level option for `siteurl` if this is the main site and a very old DB version.
+	* Old and specific. Applicable to both open and closed networks.
+1. In `pre_schema_upgrade()`, upgrade the signups and blogs table.
+	* Old and specific. Applicable to both open and closed networks.
+
 ## wp-admin/includes/user.php
 
+1. In `edit_user()`, don't allow a user with edit user caps to change their own user role to something without those caps.
+	* Applicable to both closed and open networks.
+1. In `wp_delete_user()`, use `remove_user_from_blog()` rather than deleting the user completely.
+	* Applicable to both closed and open networks.
+	* As stated elsewhere, it may be interesting to handle deletion of users in a closed network when a site admin has the ability.
